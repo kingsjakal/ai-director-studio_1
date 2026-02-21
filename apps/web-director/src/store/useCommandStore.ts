@@ -2,6 +2,7 @@ import { create } from "zustand"
 
 type Severity = "info" | "warning" | "critical"
 type CommandMode = "director" | "engineering"
+type DirectorSubMode = "auto" | "guided"
 
 interface CommandPreview {
   title: string
@@ -14,6 +15,7 @@ interface CommandState {
   input: string
   preview: CommandPreview | null
   mode: CommandMode
+  directorSubMode: DirectorSubMode
   open: () => void
   close: () => void
   toggle: () => void
@@ -21,6 +23,7 @@ interface CommandState {
   setPreview: (preview: CommandPreview) => void
   clearPreview: () => void
   setMode: (mode: CommandMode) => void
+  setDirectorSubMode: (mode: DirectorSubMode) => void
 }
 
 const useCommandStore = create<CommandState>()((set) => ({
@@ -28,6 +31,7 @@ const useCommandStore = create<CommandState>()((set) => ({
   input: "",
   preview: null,
   mode: "director",
+  directorSubMode: "auto",
   open: () => set({ isOpen: true }),
   close: () => set({ isOpen: false, input: "", preview: null }),
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
@@ -35,6 +39,7 @@ const useCommandStore = create<CommandState>()((set) => ({
   setPreview: (preview) => set({ preview }),
   clearPreview: () => set({ preview: null }),
   setMode: (mode) => set({ mode }),
+  setDirectorSubMode: (directorSubMode) => set({ directorSubMode }),
 }))
 
 export default useCommandStore

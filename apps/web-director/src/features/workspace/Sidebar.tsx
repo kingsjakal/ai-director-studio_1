@@ -1,5 +1,6 @@
 import { LayoutDashboard, FolderKanban, Clapperboard, Settings } from "lucide-react"
 import useLayoutStore from "../../store/useLayoutStore"
+import useWorkspaceStore from "../../store/useWorkspaceStore"
 import TooltipWrapper from "../../components/ui/Tooltip"
 
 const menuItems = [
@@ -11,6 +12,7 @@ const menuItems = [
 
 export default function Sidebar() {
   const { sidebarCollapsed, toggleSidebar } = useLayoutStore()
+  const { scenes, currentScene, setScene, shots, currentShot, setShot } = useWorkspaceStore()
 
   return (
     <aside
@@ -48,6 +50,43 @@ export default function Sidebar() {
           )
         })}
       </nav>
+
+      {!sidebarCollapsed && scenes.length > 0 && (
+        <div className="mt-4 flex flex-col gap-1">
+          <span className="text-xs text-textMuted px-3 mb-1">Scenes</span>
+          {scenes.map((scene) => (
+            <div key={scene.id}>
+              <button
+                onClick={() => setScene(scene)}
+                className={`w-full text-left rounded-lg px-3 py-1.5 text-sm transition-colors ${
+                  currentScene?.id === scene.id
+                    ? "text-textPrimary bg-main"
+                    : "text-textMuted hover:text-textPrimary hover:bg-main"
+                }`}
+              >
+                {scene.title}
+              </button>
+              {currentScene?.id === scene.id && shots[scene.id]?.length > 0 && (
+                <div className="ml-4 mt-1 flex flex-col gap-0.5">
+                  {shots[scene.id].map((shot) => (
+                    <button
+                      key={shot.id}
+                      onClick={() => setShot(shot)}
+                      className={`text-left rounded-md px-2 py-1 text-xs transition-colors ${
+                        currentShot?.id === shot.id
+                          ? "text-textPrimary"
+                          : "text-textMuted hover:text-textPrimary"
+                      }`}
+                    >
+                      {shot.title}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </aside>
   )
 }
