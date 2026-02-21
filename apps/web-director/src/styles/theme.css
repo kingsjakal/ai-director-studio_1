@@ -1,0 +1,19 @@
+/* DARK THEME */
+[data-theme="dark"] {
+  --bg-main: #0B0F14;
+  --bg-panel: #111827;
+  --text-primary: #E5E7EB;
+  --text-muted: #9CA3AF;
+  --accent-ai: #22D3EE;
+  --border-soft: rgba(255,255,255,0.06);
+}
+
+/* LIGHT THEME */
+[data-theme="light"] {
+  --bg-main: #F8FAFC;
+  --bg-panel: #FFFFFF;
+  --text-primary: #020617;
+  --text-muted: #475569;
+  --accent-ai: #0891B2;
+  --border-soft: rgba(0,0,0,0.08);
+}
