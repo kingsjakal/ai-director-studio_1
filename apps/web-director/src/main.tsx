@@ -5,8 +5,6 @@ import './index.css'
 import "./styles/theme.css"
 import App from './App.tsx'
 
-document.documentElement.setAttribute("data-theme", "dark")
-
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
